@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">Add</string>
+    <string name="add_hint">Enter a note</string>
+    <string name="search_hint">Search...</string>
+    <string name="notes_screen_title">Notes</string>
+    <string name="note_empty_text">There are no notes</string>
+    <string name="delete">Delete</string>
+    <string name="note_detail_screen_title">Note Detail</string>
+    <string name="back">Back</string>
+</resources>

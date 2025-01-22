@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "569274712516",
+    "project_id": "android-compose-staging",
+    "storage_bucket": "android-compose-staging.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569274712516:android:15fe329dc51d1a88bca491",
+        "android_client_info": {
+          "package_name": "com.app.androidcompose.prod"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQQiaIO2igB-pUEsGLoE2i-mAHvn7vvaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569274712516:android:782915705e34a05ebca491",
+        "android_client_info": {
+          "package_name": "com.app.androidcompose.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQQiaIO2igB-pUEsGLoE2i-mAHvn7vvaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

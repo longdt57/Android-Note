@@ -3,6 +3,7 @@ package com.example.note.support.util
 import com.example.note.support.utils.DatetimeUtil
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.util.Locale
 
 class DatetimeUtilTest {
 
@@ -11,7 +12,7 @@ class DatetimeUtilTest {
         val timestamp = 1705944600000
         val expectedDate = "2024-01-23 02:30:00"
 
-        val result = DatetimeUtil.formatDateTime(timestamp)
+        val result = DatetimeUtil.formatDateTime(timestamp, locale = Locale.US)
         assertEquals(expectedDate, result)
     }
 }

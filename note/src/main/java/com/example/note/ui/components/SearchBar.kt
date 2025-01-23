@@ -50,6 +50,8 @@ fun SearchBar(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
         colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
             focusedIndicatorColor = Color.Transparent, // Remove the focused underline
             unfocusedIndicatorColor = Color.Transparent, // Remove the unfocused underline
         )
@@ -58,7 +60,7 @@ fun SearchBar(
 
 @Preview(showBackground = true)
 @Composable
-fun QueryBoxEmptyPreview() {
+fun SearchBarEmptyPreview() {
     var query by remember { mutableStateOf("") }
     ComposeTheme {
         SearchBar(
@@ -74,7 +76,7 @@ fun QueryBoxEmptyPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun QueryBoxPreview() {
+fun SearchBarPreview() {
     var query by remember { mutableStateOf("Nature") }
     ComposeTheme {
         SearchBar(

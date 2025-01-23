@@ -18,7 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.note.support.extensions.randomColor
 import com.example.note.ui.components.SearchBar
 import com.example.note.ui.models.NoteUiModel
 import com.example.note.ui.models.NoteUiState
@@ -76,12 +75,10 @@ internal fun NoteScreenContent(
     onQueryChanged: (String) -> Unit = {},
     onQueryClear: () -> Unit = {}
 ) {
-    // Save in ViewModel to avoid changing on navigation
-    val backgroundColor = remember { randomColor() }
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor)
+            .background(uiState.backgroundColor)
             .navigationBarsPadding()
             .statusBarsPadding()
     ) {

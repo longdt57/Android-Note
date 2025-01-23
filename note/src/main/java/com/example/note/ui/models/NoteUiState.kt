@@ -1,12 +1,15 @@
 package com.example.note.ui.models
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
+import com.example.note.support.extensions.randomColor
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 @Immutable
 data class NoteUiState(
+    val backgroundColor: Color = randomColor(),
     val query: String = "",
     val items: ImmutableList<NoteUiModel> = persistentListOf(),
     val sinceTimeStamp: Long = System.currentTimeMillis(),

@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 
 @Composable
-fun LoadMoreGrid(gridState: LazyGridState, onLoadMore: () -> Unit) {
+fun LoadMoreGrid(fromBottom: Int = LOAD_MORE_FROM_BOTTOM_ITEM, gridState: LazyGridState, onLoadMore: () -> Unit) {
     // Detect when user scrolls near the bottom of the grid
     var previousScrollOffset by remember { mutableIntStateOf(0) } // To track scroll direction
     LaunchedEffect(gridState) {
@@ -23,7 +23,7 @@ fun LoadMoreGrid(gridState: LazyGridState, onLoadMore: () -> Unit) {
 
                 // Check if scrolling down and near the end of the grid
                 if (currentOffset > previousScrollOffset &&
-                    lastVisibleItemIndex >= totalItemsCount - 2
+                    lastVisibleItemIndex >= totalItemsCount - fromBottom
                 ) {
                     onLoadMore()
                 }

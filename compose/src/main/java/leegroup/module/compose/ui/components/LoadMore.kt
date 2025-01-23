@@ -10,8 +10,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 
+const val LOAD_MORE_FROM_BOTTOM_ITEM = 4
+
 @Composable
-fun LoadMore(listState: LazyListState, onLoadMore: () -> Unit) {
+fun LoadMore(fromBottom: Int = LOAD_MORE_FROM_BOTTOM_ITEM, listState: LazyListState, onLoadMore: () -> Unit) {
     // Detect when user scrolls near the bottom of the list
     var previousScrollOffset by remember { mutableIntStateOf(0) } // To track scroll direction
     LaunchedEffect(listState) {
@@ -24,7 +26,7 @@ fun LoadMore(listState: LazyListState, onLoadMore: () -> Unit) {
 
                 // Check if scrolling down and near the end of the list
                 if (currentOffset > previousScrollOffset &&
-                    lastVisibleItemIndex >= totalItemsCount - 2
+                    lastVisibleItemIndex >= totalItemsCount - fromBottom
                 ) {
                     onLoadMore()
                 }

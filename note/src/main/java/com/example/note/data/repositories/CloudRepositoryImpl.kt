@@ -6,15 +6,14 @@ import com.example.note.data.firestore.mapToFireStoreNote
 import com.example.note.data.local.datastore.NoteDataStore
 import com.example.note.data.local.room.daos.NoteDao
 import com.example.note.data.models.NoteEntity
-import com.example.note.di.NoteModule.NoteDispatcherProvider
 import com.example.note.domain.repositories.CloudRepository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.withContext
-import leegroup.module.compose.support.util.DispatchersProvider
 import javax.inject.Inject
 
 class CloudRepositoryImpl @Inject constructor(
-    @NoteDispatcherProvider private val dispatchersProvider: DispatchersProvider,
     private val noteDataStore: NoteDataStore,
     private val fireStoreNoteManager: FireStoreNoteManager,
     private val noteDao: NoteDao,
@@ -45,35 +44,46 @@ class CloudRepositoryImpl @Inject constructor(
     }
 
     private suspend fun deleteNotesFromCloud(notes: List<NoteEntity>) {
-        val results = notes.filter { note ->
-            withContext(dispatchersProvider.io) {
-                fireStoreNoteManager.deleteNoteFromFireStore(note.id)
+        coroutineScope {
+            val results = notes.map { note ->
+                async {
+                    fireStoreNoteManager.deleteNoteFromFireStore(note.id)
+                }
+            }.awaitAll()
+            val noteResults = notes.filterIndexed { index, _ -> results[index] }
+            if (noteResults.isNotEmpty()) {
+                noteDao.deleteByIds(noteResults.map { it.id })
             }
-        }
-        if (results.isNotEmpty()) {
-            noteDao.deleteByIds(results.map { it.id })
         }
     }
 
     private suspend fun addNotesToCloud(notes: List<NoteEntity>) {
-        val results = notes.filter { note ->
-            withContext(dispatchersProvider.io) {
-                fireStoreNoteManager.addNoteToFireStore(note.mapToFireStoreNote())
+        coroutineScope {
+            val results = notes.map { note ->
+                async {
+                    fireStoreNoteManager.addNoteToFireStore(note.mapToFireStoreNote())
+                }
+            }.awaitAll()
+
+            val noteResults = notes.filterIndexed { index, _ -> results[index] }
+            if (noteResults.isNotEmpty()) {
+                noteDao.upsertItems(noteResults.map { it.copy(syncedCloud = true) })
             }
-        }
-        if (results.isNotEmpty()) {
-            noteDao.upsertItems(results.map { it.copy(syncedCloud = true) })
         }
     }
 
     private suspend fun updateNotesToCloud(notes: List<NoteEntity>) {
-        val results = notes.filter { note ->
-            withContext(dispatchersProvider.io) {
-                fireStoreNoteManager.updateNoteInFireStore(note.mapToFireStoreNote())
+        coroutineScope {
+            val results = notes.map { note ->
+                async {
+                    fireStoreNoteManager.updateNoteInFireStore(note.mapToFireStoreNote())
+                }
+            }.awaitAll()
+
+            val noteResults = notes.filterIndexed { index, _ -> results[index] }
+            if (noteResults.isNotEmpty()) {
+                noteDao.upsertItems(noteResults.map { it.copy(syncedCloud = true) })
             }
-        }
-        if (results.isNotEmpty()) {
-            noteDao.upsertItems(results.map { it.copy(syncedCloud = true) })
         }
     }
 }

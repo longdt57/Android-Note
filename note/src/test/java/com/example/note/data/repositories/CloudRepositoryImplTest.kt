@@ -1,6 +1,5 @@
 package com.example.note.data.repositories
 
-import com.example.note.BaseUnitTest
 import com.example.note.data.firestore.FireStoreNote
 import com.example.note.data.firestore.FireStoreNoteManager
 import com.example.note.data.firestore.mapToEntity
@@ -21,14 +20,14 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class CloudRepositoryImplTest : BaseUnitTest() {
+class CloudRepositoryImplTest {
 
     private val noteDataStore: NoteDataStore = mockk()
     private val fireStoreNoteManager: FireStoreNoteManager = mockk()
     private val noteDao: NoteDao = mockk()
 
     private val repository =
-        CloudRepositoryImpl(testDispatcherProvider, noteDataStore, fireStoreNoteManager, noteDao)
+        CloudRepositoryImpl(noteDataStore, fireStoreNoteManager, noteDao)
 
     @Test
     fun `isSyncedFromCloud returns true when datastore emits true`() = runTest {

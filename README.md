@@ -1,6 +1,8 @@
 [![Build Status](https://app.bitrise.io/app/823c9185-a83c-475e-9fac-2e2b5d582fa4/status.svg?token=2gi5xGBtO48QOcKcahkxxA&branch=develop)](https://app.bitrise.io/app/823c9185-a83c-475e-9fac-2e2b5d582fa4)
 
 # Notes
+- [APK Staging 2.0](https://app.bitrise.io/app/823c9185-a83c-475e-9fac-2e2b5d582fa4/installable-artifacts/c989192d773f8f38/public-install-page/52670ba9c2c6591c21d95850ad5d56c6)
+- [Demo Video](https://youtube.com/shorts/E4SeUTrJ4bA?feature=share)
 
 ## Requirements
 

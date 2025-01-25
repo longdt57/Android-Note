@@ -28,7 +28,11 @@ fun NoteDetailScreen(
             .statusBarsPadding()
     ) {
         NoteDetailAppBar(onBack = { navigator(BaseDestination.Up()) })
-        Text(content, modifier = Modifier.padding(24.dp))
+        Text(
+            content, modifier = Modifier.padding(24.dp),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground
+        )
     }
 }
 
